@@ -1,0 +1,634 @@
+@import url("https://fonts.googleapis.com/css?family=Rajdhani&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Arvo&display=swap");
+
+html {
+  background: linear-gradient(-45deg, #408176, #0c1f1c, #2f5f57, #2f5f57);
+  background-size: 400% 400%;
+  -webkit-animation: gradientBG 50s ease infinite;
+  animation: gradientBG 50s ease infinite;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  min-height: 100vh;
+  color: white;
+  font-size: 15px;
+  width: 100%;
+}
+@-webkit-keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+html {
+  scrollbar-face-color: #646464;
+  scrollbar-base-color: #646464;
+  scrollbar-3dlight-color: #646464;
+  scrollbar-highlight-color: #646464;
+  scrollbar-track-color: #000;
+  scrollbar-arrow-color: #000;
+  scrollbar-shadow-color: #646464;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 3px;
+}
+::-webkit-scrollbar-button {
+  background-color: #666;
+}
+::-webkit-scrollbar-track {
+  background-color: #646464;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #000;
+}
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #666;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-corner {
+  background-color: #646464;
+}
+::-webkit-resizer {
+  background-color: #666;
+}
+
+.dropdownmenu ul,
+.dropdownmenu li {
+  margin: 0;
+  padding: 0;
+}
+.dropdownmenu ul {
+  list-style: none;
+  width: 100%;
+  height: 6px;
+  margin: 0 0 50px 0;
+}
+.dropdownmenu li {
+  position: relative;
+  display: inline-block;
+  width: auto;
+}
+.dropdownmenu a {
+  color: #ffffff;
+  display: block;
+  font: bold 12px/20px sans-serif;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  padding: 10px 50px 0 50px;
+  text-decoration: none;
+  color: #d0daf3;
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0 10px;
+}
+.dropdownmenu li:hover a {
+  color: #47fa80;
+}
+.dropdownmenu li a,
+.dropdownmenu li a:after,
+.dropdownmenu li a:before {
+  transition: all 0.35s;
+}
+.nav_links li a:hover {
+  color: #55d98a;
+}
+#submenu {
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 35px;
+  visibility: hidden;
+  z-index: 1;
+  overflow-x: hidden;
+  height: 300px;
+  width: 215px;
+  border-radius: 5px;
+}
+li:hover ul#submenu {
+  opacity: 1;
+  top: 30px; /* adjust this as per top nav padding top & bottom comes */
+  visibility: visible;
+}
+#submenu li {
+  float: none;
+  width: 100%;
+  color: white;
+  padding: 5px;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#submenu a:hover {
+  color: #5ef098;
+}
+#submenu li:hover {
+  color: #55d98a;
+}
+#submenu a {
+  color: white;
+  font-size: 10px;
+}
+.submenuHtmlButton {
+  padding: 0;
+  border: none;
+  background: none;
+}
+.login {
+  margin: 350px 0 0 0;
+}
+.playlists {
+  border: 2px solid #ccc;
+  width: 300px;
+  height: 700px;
+  overflow-y: scroll;
+}
+.playlistSongs {
+  float: right;
+}
+.playlists {
+  float: left;
+}
+.albumArt {
+  width: 30px;
+  height: auto;
+}
+label {
+  float: left;
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+input {
+  width: 20px;
+  height: 13px;
+  padding: 0;
+  margin: 0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  overflow: hidden;
+}
+.fixed_headers {
+  width: 1100px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+.fixed_headers th,
+.fixed_headers td {
+  padding: 5px;
+  text-align: left;
+}
+.fixed_headers td:nth-child(1),
+.fixed_headers th:nth-child(1) {
+  min-width: 350px;
+  padding: 0 85px 0 0;
+}
+.fixed_headers td:nth-child(2),
+.fixed_headers th:nth-child(2) {
+  min-width: 500px;
+}
+.fixed_headers td:nth-child(3),
+.fixed_headers th:nth-child(3) {
+  width: 3500px;
+}
+.fixed_headers thead {
+  color: #fdfdfd;
+}
+.fixed_headers thead tr {
+  display: block;
+  position: relative;
+  height: 40px;
+}
+.fixed_headers tbody {
+  display: block;
+  width: 100%;
+}
+.old_ie_wrapper {
+  height: 300px;
+  width: 750px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.old_ie_wrapper tbody {
+  height: auto;
+  text-align: center;
+}
+.tableRow {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.tableRow:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  /* font-size: 22px; */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 7px 0 0 0;
+  height: 3px;
+  width: 3px;
+  visibility: hidden;
+}
+.container input:checked ~ .checkmark {
+  background-color: rgb(57, 255, 146);
+  visibility: visible;
+}
+.AlbumInfo {
+  display: flex;
+  margin: 0 0 0 -9px;
+}
+.AlbumInfo h1 {
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 60px -56px 0 0;
+  font-weight: 500;
+  font-family: "Rajdhani", sans-serif;
+}
+.AlbumArt {
+  margin: 10px 20px 30px 173px;
+  width: auto;
+  height: 200px;
+  float: left;
+  display: block;
+}
+.PlaylistName {
+  font-size: 45px;
+  margin: 70px 0 0 0;
+  align-items: center;
+  overflow: hidden;
+}
+.About {
+  display: inline-block;
+}
+.About h1 {
+  margin: 40px 0 20px 0;
+  font-weight: 600;
+}
+.websiteInfo {
+  width: 600px;
+  line-height: 1.6;
+  margin: 40px 0;
+  font-weight: 350;
+}
+.About h2 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  font-weight: 350;
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 20px auto 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+}
+.content {
+  position: absolute;
+  top: 19.5%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 160px;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  font-size: 28rem;
+  line-height: 40px;
+  color: #ecf0f1;
+}
+.content__container {
+  font-weight: 600;
+  overflow: hidden;
+  height: 40px;
+  padding: 0 40px;
+}
+.content__container:before {
+  content: "[";
+  left: 0;
+}
+.content__container:after {
+  content: "]";
+  position: absolute;
+  right: 0;
+}
+.content__container:after,
+.content__container:before {
+  position: absolute;
+  top: 0;
+  color: #16a085;
+  font-size: 42px;
+  line-height: 40px;
+  -webkit-animation-name: opacity;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: opacity;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.content__container__text {
+  display: inline;
+  float: left;
+  margin: 0;
+}
+.content__container__list {
+  margin-top: 0;
+  padding-left: 110px;
+  text-align: left;
+  list-style: none;
+  -webkit-animation-name: change;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: change;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+.content__container__list__item {
+  line-height: 40px;
+  margin: 0;
+}
+#user {
+  color: #39d46a;
+}
+@-webkit-keyframes opacity {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes change {
+  0%,
+  12.66%,
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  16.66%,
+  29.32% {
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
+  }
+  33.32%,
+  45.98% {
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+  }
+  49.98%,
+  62.64% {
+    -webkit-transform: translate3d(0, -75%, 0);
+    transform: translate3d(0, -75%, 0);
+  }
+  66.64%,
+  79.3% {
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+  }
+  83.3%,
+  95.96% {
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
+  }
+}
+@keyframes opacity {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes change {
+  0%,
+  12.66%,
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  16.66%,
+  29.32% {
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
+  }
+  33.32%,
+  45.98% {
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+  }
+  49.98%,
+  62.64% {
+    -webkit-transform: translate3d(0, -75%, 0);
+    transform: translate3d(0, -75%, 0);
+  }
+  66.64%,
+  79.3% {
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+  }
+  83.3%,
+  95.96% {
+    -webkit-transform: translate3d(0, -25%, 0);
+    transform: translate3d(0, -25%, 0);
+  }
+}
+#selectPlaylist {
+  color: #d6e3ff;
+}
+.prompt {
+  margin: 60px 0 0 0;
+  color: #e4edff;
+  font-size: 50px;
+}
+.buttonContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  text-align: center;
+  display: inline-block;
+  margin: 40px 0;
+}
+@media (min-width: 600px) {
+  .buttonContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.btn {
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 45px;
+  margin: 0 0 2em;
+  max-width: 160px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 19px;
+}
+@media (min-width: 600px) {
+  .btn {
+    margin: 0 1em 2em;
+  }
+}
+.btn:hover {
+  text-decoration: none;
+}
+.btn-5 {
+  border: 0 solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+  padding: 10px 30px;
+}
+.btn-5:hover {
+  border: 1px solid;
+  box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.63),
+    0 0 20px rgba(252, 16, 16, 0.281);
+  outline-color: rgba(255, 124, 124, 0);
+  outline-offset: 15px;
+  text-shadow: 1px 1px 2px #427388;
+}
+#loginButton:hover {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.315),
+    0 0 20px rgba(17, 148, 61, 0.178);
+  color: rgba(25, 196, 3, 0.815);
+}
+.scrollUpButton {
+  outline: none;
+}
+.link {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #d0daf3;
+}
+.link:hover {
+  color: #50ff87;
+}
+#boldWords {
+  color: #39d46a;
+  font-weight: 600;
+}
+.grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.grid-item {
+  min-width: 250px;
+  max-width: 250px;
+  flex: 1 1 350px;
+  padding: 0.5rem 1.3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.wrapper {
+  min-height: 100vh;
+  padding: 7rem 0;
+  color: #e4e4e8;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}
+.wrapper h1 {
+  font-size: 2.125em;
+  line-height: 1.5;
+}
+.wrapper p {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: #c4c4c8;
+}
+.grid-item figure {
+  padding: 0;
+  margin: 0;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+}
+.grid-item figure img {
+  display: block;
+  max-width: 100%;
+}
+.grid-item figcaption {
+  display: block;
+  padding: 0.625rem 0.5rem;
+}
+.deleteSongs {
+  margin: 20px;
+  font-size: 21px;
+  font-family: "Lato", sans-serif;
+  color: rgb(255, 103, 103);
+  font-family: "Arvo", serif;
+}
