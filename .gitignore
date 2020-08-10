@@ -23,6 +23,16 @@ chrome-user-data
 *.swp
 *.swo
 
+.env
+.env.example
+.env.local
+.env.staging
+
+# Firebase Hosting
+/.firebase
+.firebaserc
+firebase-debug.log
+
 packages/react-devtools-core/dist
 packages/react-devtools-extensions/chrome/build
 packages/react-devtools-extensions/chrome/*.crx

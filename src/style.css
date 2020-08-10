@@ -2,7 +2,9 @@
 @import url("https://fonts.googleapis.com/css?family=Arvo&display=swap");
 
 html {
-  background: linear-gradient(-45deg, #408176, #0c1f1c, #2f5f57, #2f5f57);
+  /* background: linear-gradient(-45deg, #408176, #0c1f1c, #2f5f57, #2f5f57); */
+  background: linear-gradient(-45deg, #39a760, #0c1f1c, #428359, #2a9b51);
+
   background-size: 400% 400%;
   -webkit-animation: gradientBG 50s ease infinite;
   animation: gradientBG 50s ease infinite;

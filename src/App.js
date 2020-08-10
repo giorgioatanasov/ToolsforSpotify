@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./index.css";
 import "./style.css";
 import NavBar from "./pages/NavBar.jsx";
 import ScrollUpButton from "react-scroll-up-button";
 import ScrollToTop from "react-router-scroll-top";
-import DocumentTitle from "react-document-title";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 //Pages
 import Home from "./pages/Home.jsx";
@@ -20,7 +19,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <DocumentTitle title="SpotifyTools"></DocumentTitle>
         <Router>
           <ScrollToTop>
             <NavBar />

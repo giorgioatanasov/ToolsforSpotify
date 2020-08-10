@@ -18,7 +18,7 @@ const initialState = {
   deleteTracks: [],
   checkboxes: {},
   successDelete: false,
-  user_id: ""
+  display_name: "",
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -26,12 +26,12 @@ const mainReducer = (state = initialState, action) => {
     case "UPDATE_SUBMENU":
       return {
         ...state,
-        submenuHtml: state.submenuHtml
+        submenuHtml: state.submenuHtml,
       };
     case "LOGGED_IN":
       return {
         ...state,
-        loggedIn: true
+        loggedIn: true,
       };
 
     case "UPDATE_LOGGED_IN":
@@ -39,13 +39,13 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         loggedIn: action.token ? true : false,
         token: action.token ? action.token : "",
-        user_id: action.user_id ? action.user_id : ""
+        display_name: action.display_name || "Spotify User",
       };
     case "FILL_PLAYLIST":
       return {
         ...state,
         playlistInfo: action.playlistInfo,
-        playlists: action.playlists
+        playlists: action.playlists,
       };
     case "SELECTED_PLAYLIST":
       return {
@@ -53,12 +53,12 @@ const mainReducer = (state = initialState, action) => {
         oldPlaylistId: state.oldPlaylistId
           ? state.playlistID
           : action.playlistId,
-        playlistID: action.playlistId
+        playlistID: action.playlistId,
       };
     case "CREATE_CHECKBOXES":
       return {
         ...state,
-        checkboxes: action.checkboxes
+        checkboxes: action.checkboxes,
       };
     case "UPDATE_CHECKBOXES":
       return {
@@ -66,18 +66,28 @@ const mainReducer = (state = initialState, action) => {
         checkboxes: {
           // update checkboxes
           ...state.checkboxes,
-          [action.songId]: !state.checkboxes[action.songId]
-        }
+          [action.songId]: !state.checkboxes[action.songId],
+        },
       };
     case "SUCCESS_DELETE":
       return {
         ...state,
-        successDelete: true
+        successDelete: true,
       };
     case "REVERT_DELETE":
       return {
         ...state,
-        successDelete: false
+        successDelete: false,
+      };
+    case "LOGOUT":
+      return {
+        initialState,
+      };
+
+    case "UPDATE_PLAYLIST":
+      return {
+        ...state,
+        playlistInfo: action.playlistInfo,
       };
     default:
       return state;

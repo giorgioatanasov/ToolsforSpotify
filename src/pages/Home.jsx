@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import SpotifyWebApi from "./spotify-web-api.js";
+import SpotifyWebApi from "../spotify-web-api.js";
+import axios from "axios";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import qs from "qs";
+import redirectAuth from "../authorize.js";
+
 const spotifyApi = new SpotifyWebApi();
 const playlists = [];
 var playlistNonState = {};
@@ -22,21 +26,21 @@ class Home extends Component {
 
   getNowPlaying() {
     // for future implementation
-    spotifyApi.getMyCurrentPlaybackState().then(response => {
+    spotifyApi.getMyCurrentPlaybackState().then((response) => {
       if (response.item) {
         this.setState({
           nowPlaying: {
             name: response.item.name,
-            albumArt: response.item.album.images[0].url
-          }
+            albumArt: response.item.album.images[0].url,
+          },
         });
         document.getElementById("nocontent").innerHTML = "";
       } else {
         this.setState({
           nowPlaying: {
             name: "No Song",
-            ablumArt: ""
-          }
+            ablumArt: "",
+          },
         });
         document.getElementById("nocontent").innerHTML =
           "No song is currently being played";
@@ -66,21 +70,34 @@ class Home extends Component {
   }
 
   getPlaylists() {
-    if (
-      this.props.loggedIn &&
-      !this.props.playlistInfo.length &&
-      !this.props.playlists.length
-    ) {
-      spotifyApi.getUserPlaylists().then(response => {
-        for (var i = 0; i < response.items.length; ++i) {
-          playlists[i] = {
+    spotifyApi.getUserPlaylists().then((response) => {
+      let count = 0;
+      for (var i = 0; i < response.items.length; ++i) {
+        if (response.items[i].tracks.total > 0) {
+          playlists[count++] = {
             name: response.items[i].name,
             id: response.items[i].id,
             AlbumArt: this.handleImages(response.items[i]),
-            snapshotId: response.items[i].snapshot_id
+            snapshotId: response.items[i].snapshot_id,
           };
         }
-        this.getTracksForAll();
+      }
+      this.getTracksForAll();
+    });
+  }
+
+  getTracks(id) {
+    for (var i = 0; i <= 600; i += 100) {
+      spotifyApi.getPlaylistTracks(id, { offset: i }).then((response) => {
+        for (var i = 0; i < response.items.length; ++i) {
+          response.items[i].track &&
+            playlistNonState[id].push({
+              songTitle: response.items[i].track.name,
+              songId: response.items[i].track.id,
+              artist: this.getArtists(response.items[i].track.artists),
+              albumArt: this.handleImages(response.items[i].track.album),
+            });
+        }
       });
     }
   }
@@ -95,34 +112,25 @@ class Home extends Component {
     this.props.dispatchFillPlaylistData(playlistNonState);
   }
 
-  getTracks(id) {
-    for (var i = 0; i <= 600; i += 100) {
-      spotifyApi.getPlaylistTracks(id, { offset: i }).then(response => {
-        for (var i = 0; i < response.items.length; ++i) {
-          playlistNonState[id].push({
-            songTitle: response.items[i].track.name,
-            songId: response.items[i].track.id,
-            artist: this.getArtists(response.items[i].track.artists),
-            albumArt: this.handleImages(response.items[i].track.album)
-          });
-        }
-      });
-    }
-  }
-
   componentDidMount() {
-    if (!this.props.token) {
-      const params = this.getHashParams();
-      const token = params.access_token;
-      const user_id = params.user_id;
-      this.props.dispatchLoginUpdate(token, user_id);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.loggedIn !== prevProps.loggedIn && this.props.loggedIn) {
-      spotifyApi.setAccessToken(this.props.token);
-      this.getPlaylists();
+    let auth_token = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true,
+    }).code;
+    if (auth_token) {
+      const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+      axios
+        .get(API_DOMAIN + "/access/" + auth_token)
+        .then((res) => {
+          const token = res.data.access_token;
+          spotifyApi.setAccessToken(token);
+          spotifyApi.getMe().then((res) => {
+            this.props.dispatchLoginUpdate(token, res.display_name);
+          });
+          this.getPlaylists();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }
 
@@ -131,12 +139,12 @@ class Home extends Component {
     var fontSize = this.props.loggedIn ? 28 + "px" : 35 + "px";
     return (
       <body>
-        {this.props.loggedIn !== undefined && !this.props.loggedIn && (
+        {!this.props.token && (
           <div className="login">
             <a
-              href="https://spotify-tools.glitch.me"
               className="btn btn-5"
               id="loginButton"
+              onClick={() => redirectAuth()}
             >
               Login to Spotify
             </a>
@@ -149,7 +157,7 @@ class Home extends Component {
 
             <ul className="content__container__list">
               <li className="content__container__list__item" id="user">
-                {this.props.user_id ? this.props.user_id : "spotify user"} !
+                {this.props.display_name} !
               </li>
               <li
                 className="content__container__list__item"
@@ -167,7 +175,6 @@ class Home extends Component {
             </ul>
           </div>
         </div>
-
         {this.props.loggedIn !== undefined &&
           this.props.playlistInfo !== undefined &&
           this.props.loggedIn && (
@@ -187,6 +194,8 @@ class Home extends Component {
                               ? AlbumArt
                               : "https://drive.google.com/uc?id=1DyACi59SG-L6mDFUGLmR4E2SbEFEcuzG"
                           }
+                          width="250"
+                          height="250"
                           alt=""
                         ></img>
                         <figcaption>{name}</figcaption>
@@ -202,7 +211,7 @@ class Home extends Component {
   }
 }
 
-const mapStatetoProps = state => ({
+const mapStatetoProps = (state) => ({
   submenuHtml: state.submenuHtml,
   loggedIn: state.loggedIn,
   playlistInfo: state.playlistInfo,
@@ -213,25 +222,22 @@ const mapStatetoProps = state => ({
   checkboxes: state.checkboxes,
   successDelete: state.successDelete,
   token: state.token,
-  user_id: state.user_id
+  display_name: state.display_name,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatchCurPlaylistID: playlistId =>
+    dispatchCurPlaylistID: (playlistId) =>
       dispatch({ type: "SELECTED_PLAYLIST", playlistId }),
-    dispatchSubmenuHtml: data =>
+    dispatchSubmenuHtml: (data) =>
       dispatch({ type: "UPDATE_SUBMENU", submenuHtml: data }),
     dispatchLoggedIn: () => dispatch({ type: "LOGGED_IN" }),
-    dispatchFillPlaylistData: playlistInfo =>
+    dispatchFillPlaylistData: (playlistInfo) =>
       dispatch({ type: "FILL_PLAYLIST", playlistInfo, playlists }),
     dispatchSuccessDelete: () => dispatch({ type: "SUCCESS_DELETE" }),
-    dispatchLoginUpdate: (token, user_id) =>
-      dispatch({ type: "UPDATE_LOGGED_IN", token, user_id })
+    dispatchLoginUpdate: (token, display_name) =>
+      dispatch({ type: "UPDATE_LOGGED_IN", token, display_name }),
   };
 };
 
-export default connect(
-  mapStatetoProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStatetoProps, mapDispatchToProps)(Home);
